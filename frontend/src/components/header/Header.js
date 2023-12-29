@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './Header.module.scss'
 import { Link, NavLink } from 'react-router-dom';
 import { FaShoppingCart } from "react-icons/fa";
+import { HiOutlineMenuAlt3 } from 'react-icons/hi';
 
 export const logo = (
   <div className={styles.logo}>
@@ -16,6 +17,13 @@ export const logo = (
 const activeLink = ({isActive}) => (isActive ? `${styles.active}`: '')
 
 const Header = () => {
+  const [showMenu, setShowMenu] = useState(false)
+  const toggleMenu = () => {
+    setShowMenu(!showMenu);
+  };
+  const hideMenu = () => {
+    setShowMenu(false);
+  }
   const cart = (
     <span className={styles.cart}>
       <Link to='/cart'>
@@ -25,6 +33,7 @@ const Header = () => {
       </Link>
     </span>
   )
+
   return (
     <header>
         <div className={styles.header}>
@@ -36,7 +45,7 @@ const Header = () => {
             </Link>
           </div>
           
-          <nav>
+          <nav className={showMenu ? `${styles["show-menu"]}` : `${styles['hide-menu']}`}>
             <ul>
               <li>
                 <NavLink to='/shop' className={activeLink}>Shop</NavLink>
@@ -51,6 +60,10 @@ const Header = () => {
               {cart}
             </div>
           </nav>
+          <div className={styles['menu-icon']}>
+            {cart}
+            <HiOutlineMenuAlt3  size={30} onClick={toggleMenu}/>
+          </div>
         </div>
     </header>
   )

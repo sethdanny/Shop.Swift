@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './Header.module.scss'
 import { Link, NavLink } from 'react-router-dom';
+import { FaShoppingCart } from "react-icons/fa";
 
 export const logo = (
   <div className={styles.logo}>
@@ -15,6 +16,15 @@ export const logo = (
 const activeLink = ({isActive}) => (isActive ? `${styles.active}`: '')
 
 const Header = () => {
+  const cart = (
+    <span className={styles.cart}>
+      <Link to='/cart'>
+        Cart
+        <FaShoppingCart size={20} />
+        <p>0</p>
+      </Link>
+    </span>
+  )
   return (
     <header>
         <div className={styles.header}>
@@ -38,6 +48,7 @@ const Header = () => {
                 <NavLink to={'register'} className={activeLink}>Register</NavLink>
                 <NavLink to={'order-history'} className={activeLink}>My Order</NavLink>
               </span>
+              {cart}
             </div>
           </nav>
         </div>

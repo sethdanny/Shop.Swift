@@ -4,6 +4,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import dbConnect from './config/database.js';
 import userRoute from './routes/userRoute.js';
+import errorHandler from './middleware/errorMiddleware.js';
 
 const app = express();
  dotenv.config();
@@ -28,6 +29,9 @@ app.get('/', (req, res) => {
     res.send('Welcome to programming');
  })
 
+ //Handle Errors
+ app.use(errorHandler);
+ 
  const startServer =  async() => {
     try {
         await dbConnect();

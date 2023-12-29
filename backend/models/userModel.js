@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { ObjectId } from 'mongoose.Schema';
+import { ObjectId, Schema } from 'mongoose';
 
 const userSchema = mongoose.Schema(
     {
@@ -41,27 +41,8 @@ const userSchema = mongoose.Schema(
       address: {
         type: Object,
         // address, state, country
-      },
-      /*wishlist: [{ type: ObjectId, ref: "Product" }],
-      balance: {
-        type: Number,
-        default: 0,
-      },
-      cartItems: {
-        type: [Object],
-      },
-      isVerified: {
-        type: Boolean,
-        default: false,
-      },
-      stripeCustomerId: {
-        type: String,
-        // required: true,
-      },
-    },*/
-      timestamps: true,
-    }
-  );
+      }
+    });
 
   const User = mongoose.model('User', userSchema);
 

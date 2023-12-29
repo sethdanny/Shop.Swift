@@ -32,12 +32,20 @@ export const registerUser = asyncHandler(
         //generate token 
         const token = generateToken(user._id);
         if(user) {
+            const {_id, name, email, role} = user
             res.cookie("token", token, {
                 path: '/',
                 httpOnly: true,
                 expiresIn: new Date(Date.now() + 1000 * 86400),
-                secure: true,
-                samesite: none
+                //secure: true,
+                //samesite: none
+            })
+            res.status(201).json({
+                _id,
+                name,
+                email,
+                role,
+                token
             })
         } else {
             res.status(400)

@@ -3,13 +3,28 @@ import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import dbConnect from './config/database.js';
+import userRoute from './routes/userRoute.js';
 
 const app = express();
  dotenv.config();
 
- const PORT = process.env.PORT || 5001
+const PORT = process.env.PORT || 5001
 
- app.get('/', (req, res) => {
+
+ //middlewares
+app.use(express.json());
+app.use(cookieParser());
+app.use(express.urlencoded({extended: false}));
+app.use(cors({
+    origin: [`http://localhost:${PORT}`, 'https://shopswift.vercel.app'],
+    credentials: true
+})
+);
+
+//Routes
+app.use('/api/users', userRoute);
+
+app.get('/', (req, res) => {
     res.send('Welcome to programming');
  })
 

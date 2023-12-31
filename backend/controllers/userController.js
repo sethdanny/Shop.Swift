@@ -99,11 +99,22 @@ export const logoutUser = asyncHandler(async (req, res) => {
 });
 
 export const getUser = asyncHandler(async (req, res) => {
-    const user = await User.findById(req.user._id).select('-password');
-    if (user) {
-        res.status(200).json(user);
-    } else {
-        res.status(400);
-        throw new Error('User not found');
-    }
+  const user = await User.findById(req.user._id).select('-password');
+  if (user) {
+    res.status(200).json(user);
+  } else {
+    res.status(400);
+    throw new Error('User not found');
+  }
 });
+
+// get login status
+export const getLoginStatus = asyncHandler(async (req, res) => {
+  const token = req.cookies.token;
+  if (!token) {
+    res.status(403);
+    throw new Error('Authorization failed: Token missing');
+  }
+  const verified = jwt.verify(token, process.env.JWT_SECRET);
+});
+

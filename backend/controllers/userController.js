@@ -112,9 +112,13 @@ export const getUser = asyncHandler(async (req, res) => {
 export const getLoginStatus = asyncHandler(async (req, res) => {
   const token = req.cookies.token;
   if (!token) {
-    res.status(403);
-    throw new Error('Authorization failed: Token missing');
+    return res.json(false);
   }
   const verified = jwt.verify(token, process.env.JWT_SECRET);
+  if (verified) {
+    res.json(true);
+  } else {
+    res.json(false);
+  } 
 });
 

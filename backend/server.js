@@ -7,42 +7,39 @@ import userRoute from './routes/userRoute.js';
 import errorHandler from './middleware/errorMiddleware.js';
 
 const app = express();
- dotenv.config();
+dotenv.config();
 
-const PORT = process.env.PORT || 5001
+const PORT = process.env.PORT || 5001;
 
-
- //middlewares
+// middlewares
 app.use(express.json());
 app.use(cookieParser());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 app.use(cors({
-    origin: [`http://localhost:${PORT}`, 'https://shopswift.vercel.app'],
-    credentials: true
+  origin: [`http://localhost:${PORT}`, 'https://shopswift.vercel.app'],
+  credentials: true
 })
 );
 
-//Routes
+// Routes
 app.use('/api/users', userRoute);
 
 app.get('/', (req, res) => {
-    res.send('Welcome to programming');
- })
+  res.send('Welcome to programming');
+});
 
- //Handle Errors
- app.use(errorHandler);
- 
- const startServer =  async() => {
-    try {
-        await dbConnect();
-        app.listen(PORT, () => {
-            console.log(`Server is listening on: http://localhost:${PORT}`);
-        })
-    } catch (error) {
-        console.log(error);
-    }   
-}
+// Handle Errors
+app.use(errorHandler);
+
+const startServer = async () => {
+  try {
+    await dbConnect();
+    app.listen(PORT, () => {
+      console.log(`Server is listening on: http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 startServer();
-
- 
